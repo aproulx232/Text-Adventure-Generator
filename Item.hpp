@@ -22,6 +22,8 @@ public:
 	char * turn_on_Print;
 	char * turn_on_Action;
 	std::list<Trigger*> triggers;
+
+	void printWriting();
 	virtual char* getName();
 	virtual int print();
 	virtual std::string getStatus();

@@ -115,7 +115,14 @@ int runGame(Element* map){
 				}
 
 			}
-			else if(input->compare("n") == STR_EQUAL){
+			else if(firstWord.compare("read") == STR_EQUAL){
+				Item* itemToRead = player->getItem(secondWord);
+				if(itemToRead != NULL){
+					itemToRead->printWriting();
+				}
+				else{
+					std::cout<<"No "<<secondWord<<" in your inventory"<<std::endl;
+				}
 
 			}
 			else if(input->compare("n") == STR_EQUAL){

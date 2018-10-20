@@ -37,6 +37,17 @@ int Item::setStatus(std::string newStatus){
 }
 
 /*
+ * Print writing on Item
+ */
+void Item::printWriting(){
+	if(writing != '\0'){
+		std::cout<<writing<<std::endl;
+	}
+	else{
+		std::cout<<"Nothing written."<<std::endl;
+	}
+}
+/*
  * Gets obj status
  * Return: string: status
  */
