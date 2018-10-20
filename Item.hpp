@@ -13,12 +13,19 @@
 
 class Item :public Element{
 public:
+	Item();
+	virtual ~Item();
 	char * name;
 	char * status;
 	char * description;
 	char * writing;
-	char * turn_on;
-	Trigger * triggers;
+	char * turn_on_Print;
+	char * turn_on_Action;
+	std::list<Trigger*> triggers;
+	virtual char* getName();
+	virtual int print();
+	virtual std::string getStatus();
+	virtual int setStatus(std::string newStatus);
 };
 
 

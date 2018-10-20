@@ -9,15 +9,21 @@
 #define CREATURE_HPP_
 
 #include "Element.hpp"
+#include "Trigger.hpp"
+#include "Attack.hpp"
 
 class Creature: public Element{
 public:
 	char * name;
 	char * status;
 	char * description;
-	char * vulnerability;//TODO may need double pointer is more than 1
-	//TODO add attack class
-	Trigger * triggers;
+	std::list<char*> vulnerabilities;
+	std::list<Attack*> attacks;
+	std::list<Trigger*> triggers;
+	Creature();
+	virtual char* getName();
+	virtual int print();
+	virtual std::string getStatus();
 
 };
 

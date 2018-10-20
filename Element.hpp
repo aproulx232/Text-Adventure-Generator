@@ -9,13 +9,29 @@
 #define ELEMENT_HPP_
 #include <list>
 #include <iterator>
+
+//#include "builder.hpp"
+
 using namespace std;
 
 class Element{
 public:
 	Element();
-	list <Element*> list;
+	virtual~Element();
+	static list <Element*> mapList;
+	Element* getElement(char* name);
+	Element* getElement(std::string name);
+	int printMapList();
+	int doAction(string actionStr);
+
+	virtual char* getName();
+	virtual int print();
+	virtual std::string getStatus();
+	virtual int setStatus(std::string newStatus);
+
 };
+
+
 
 
 

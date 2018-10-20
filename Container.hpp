@@ -19,11 +19,19 @@ public:
 	char * name;
 	char * status;
 	char * description;
-	std::list <Item*> accepts;
-	std::list <Item*> items;
+	std::list <char*> accepts;
+	std::list <char*> items;
 	std::list <Trigger*> triggers;
 
 	Container();
+	bool hasItem(char*);
+	Item* getItem(std::string item);
+
+
+	virtual char* getName();
+	virtual int print();
+	virtual std::string getStatus();
+	virtual int setStatus(std::string newStatus);
 
 };
 

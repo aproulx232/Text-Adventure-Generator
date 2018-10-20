@@ -15,6 +15,8 @@
 //#include "rapidxml_utils.hpp"
 
 #include "builder.hpp"
+#include "engine.hpp"
+#include "util.hpp"
 
 using namespace std;
 using namespace rapidxml;
@@ -43,7 +45,9 @@ int main(){
 	//cout <<buffer<<endl;
 	//cout << "parsing" <<endl;
 	int status = OK;
-	status = buildGame(buffer);
+	Element* map = new Element();
+	status = buildGame(buffer, map);
+	status = runGame(map);
 	cout<< "status: "<<status<<endl;
 	/*
 	xml_document<> doc;    // character type defaults to char
@@ -86,5 +90,12 @@ int main(){
 	return 0;
 }
 
+
+/*
+ * TODO LIST:
+ * Add command, when adding item to room, need to check containers
+ * wont let use command if it activates the trigger
+ * have player class with list of items and curr room. has pointers to elements in maplist
+ */
 
 
