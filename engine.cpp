@@ -88,11 +88,12 @@ int runGame(Element* map){
 			cout<<"secondWord: \""<<secondWord<<"\""<<endl;
 
 			if(firstWord.compare("take") == STR_EQUAL){
-				std::cout<<"take "<<secondWord<<std::endl;
+				//std::cout<<"take "<<secondWord<<std::endl;
 				Item* itemToAdd = player->currentRoom->getItemAll(secondWord);
 				if(itemToAdd != NULL){
-					cout<<"test name: "<<itemToAdd->name<<endl;
-					player->addItem(player->currentRoom->getItemAll(secondWord));
+					player->addItem(itemToAdd);
+					player->currentRoom->removeItemAll(secondWord);
+					std::cout<<itemToAdd->name<<" added to inventory."<<std::endl;
 				}
 			}
 			else if(firstWord.compare("open") == STR_EQUAL){
@@ -103,6 +104,14 @@ int runGame(Element* map){
 						quit = true;
 					}
 
+				}
+				else{
+					Element temp;
+					Container* container = dynamic_cast<Container*>(temp.getElement(secondWord));
+					if(container != NULL){
+						container->opened = true;
+						container->printContents();
+					}
 				}
 
 			}

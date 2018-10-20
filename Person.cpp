@@ -93,13 +93,15 @@ void Person::printInventory(){
 			Item* index = (*it);
 			if(index != NULL){
 				if(printedFirstItem == true){
-					std::cout<<", "<<index->name<<std::endl;
+					std::cout<<", "<<index->name;
 				}
 				else{
-					std::cout<<index->name<<std::endl;
+					std::cout<<index->name;
+					printedFirstItem = true;
 				}
 			}
 		}
+		std::cout<<""<<std::endl;
 	}
 
 }

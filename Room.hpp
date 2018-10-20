@@ -37,6 +37,8 @@ public:
 	int checkTriggers(string command);
 	Item* getItemAll(string item);
 	Item* getItemRoom(string item);
+	Item* removeItemRoom(std::string item);
+	Item* removeItemAll(std::string item);
 
 	virtual char* getName();
 	virtual int print();

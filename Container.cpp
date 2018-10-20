@@ -18,6 +18,7 @@ Container::Container(){
 	name = '\0';
 	status = '\0';
 	description = '\0';
+	opened = false;
 	accepts = {};
 	items = {};
 	triggers = {};
@@ -64,6 +65,51 @@ Item* Container::getItem(std::string item){
 		}
 	}
 	return match;
+}
+
+/*
+ * Removes the item from the items list. does not delete item from game
+ * Param: std::string item: item to get
+ * Return: Item* : item removed
+ */
+Item* Container::removeItem(std::string item){
+	Item* match = NULL;
+	std::list<char*>::iterator it;
+	for (it = items.begin(); it != items.end(); ++it){
+		char* index = (*it);
+		if(item.compare((string)index) == STR_EQUAL){
+			match = dynamic_cast<Item*>(this->getElement(index));
+			items.erase(it);
+		}
+	}
+	return match;
+}
+
+/*
+ * Prints the contents of  the container in neat format
+ */
+void Container::printContents(){
+	std::list<char*>::iterator it;
+	bool printedFirstItem = false;
+	std::cout<<name<<" ";
+	if(items.empty()){
+		std::cout<<"is empty"<<std::endl;
+	}
+	else{
+		std::cout<<"contains ";
+		for (it = items.begin(); it != items.end(); ++it){
+			Item* index = dynamic_cast<Item*>(this->getElement((*it)));
+			if(index != NULL){
+				if(printedFirstItem == true){
+					std::cout<<", "<<index->name;
+				}
+				else{
+					std::cout<<index->name;
+				}
+			}
+		}
+		std::cout<<""<<std::endl;
+	}
 }
 
 

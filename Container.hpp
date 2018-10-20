@@ -19,6 +19,7 @@ public:
 	char * name;
 	char * status;
 	char * description;
+	bool opened;
 	std::list <char*> accepts;
 	std::list <char*> items;
 	std::list <Trigger*> triggers;
@@ -26,6 +27,8 @@ public:
 	Container();
 	bool hasItem(char*);
 	Item* getItem(std::string item);
+	void printContents();
+	Item* removeItem(std::string item);
 
 
 	virtual char* getName();

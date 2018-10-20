@@ -91,10 +91,13 @@ Item* Room::getItemAll(string item){
 		std::list<Container*>::iterator it;
 		for (it = containers.begin(); it != containers.end(); ++it){
 			Container* index = (*it);
-			match = index->getItem(item);
-			if( match != NULL){
-				return match;
+			if(index->opened == true){
+				match = index->getItem(item);
+				if( match != NULL){
+					return match;
+				}
 			}
+
 		}
 	}
 	return match;
@@ -114,6 +117,43 @@ Item* Room::getItemRoom(string item){
 	return NULL;
 }
 
+/*
+ * Removes the item from the room items list
+ */
+Item* Room::removeItemRoom(std::string item){
+	std::list<Item*>::iterator it;
+	for (it = items.begin(); it != items.end(); ++it){
+		Item* index = (*it);
+		if(item.compare((string)index->name) == STR_EQUAL){
+			items.erase(it);
+			return index;
+		}
+	}
+	return NULL;
+}
+
+/*
+ * Removes item from room and any open containers in the room
+ */
+Item* Room::removeItemAll(std::string item){
+	Item* match = NULL;
+	match = this->removeItemRoom(item);
+	if(match == NULL){
+		std::list<Container*>::iterator it;
+		for (it = containers.begin(); it != containers.end(); ++it){
+			Container* index = (*it);
+			if(index->opened == true){
+				match = index->getItem(item);
+				if( match != NULL){
+					index->removeItem(item);
+					return match;
+				}
+			}
+
+		}
+	}
+	return match;
+}
 int Room::print(){
 	int statusInt = OK;
 	if(name != NULL)
