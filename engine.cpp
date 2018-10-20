@@ -131,6 +131,16 @@ int runGame(Element* map){
 			else{
 				std::cout<<"Error "<<std::endl;
 			}
+			if(input->find("turn on") != std::string::npos){
+				std::string itemStr = input->substr(LEN_OF_TURN_ON, input->size());
+				std::cout<<"itemstr:: "<<itemStr<<std::endl;
+				Element temp;
+				Item* item = player->getItem(itemStr);
+				if(item != NULL){
+					item->doAction((string)item->turn_on_Action);
+					std::cout<<item->turn_on_Print<<std::endl;
+				}
+			}
 		}
 		else{
 			std::cout<<"Error "<<std::endl;

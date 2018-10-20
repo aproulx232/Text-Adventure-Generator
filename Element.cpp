@@ -77,11 +77,15 @@ std::string Element::getStatus(){
 	return "ERROR";
 }
 
+/*
+ * Does the action string of the Element
+ */
+
 int Element::doAction(string actionStr){
 	int statusInt = OK;
 	/* Parse out the action */
 	std::string firstWord = actionStr.substr(0,actionStr.find(" "));
-	if(firstWord.compare("Update")){
+	if(firstWord.compare("Update") == STR_EQUAL){
 		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to"));
 		std::string statusStr = actionStr.substr(actionStr.find("to ")+1,actionStr.length());
 		std::cout<<"Element::doAction: Update "<<objStr<<" to "<<statusStr<<std::endl;
@@ -90,7 +94,8 @@ int Element::doAction(string actionStr){
 			obj->setStatus(statusStr);
 		}
 	}
-	else if(firstWord.compare("Add")){
+	else if(firstWord.compare("Add") == STR_EQUAL){
+		std::cout<<"ERROR TODO Add"<<std::endl;
 		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to"));
 		std::string toStr = actionStr.substr(actionStr.find("to ")+1,actionStr.length());
 		std::cout<<"Element::doAction: Add "<<objStr<<" to "<<toStr<<std::endl;
@@ -100,8 +105,8 @@ int Element::doAction(string actionStr){
 			//TODO
 		}
 	}
-	else if(firstWord.compare("Delete")){
-
+	else if(firstWord.compare("Delete") == STR_EQUAL){
+		std::cout<<"ERROR TODO Delete"<<std::endl;
 	}
 	return statusInt;
 }

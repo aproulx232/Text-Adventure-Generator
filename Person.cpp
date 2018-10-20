@@ -59,6 +59,7 @@ void Person::addItem(Item* item){
 }
 
 /*
+ * Gets item from player's inventory
  * Param: string item: name of item pointer to return
  */
 Item* Person::getItem(string item){
