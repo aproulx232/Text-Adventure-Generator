@@ -140,6 +140,8 @@ int runGame(Element* map){
 					item->doAction((string)item->turn_on_Action);
 					std::cout<<item->turn_on_Print<<std::endl;
 				}
+				player->currentRoom->checkTriggers(*input);
+				//std::cout<<item->status<<std::endl;
 			}
 		}
 		else{

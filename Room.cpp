@@ -56,15 +56,26 @@ int Room::checkTriggers(){
  */
 int Room::checkTriggers(string command){
 	int statusInt = OK;
+	/* check room triggers*/
 	if(!triggers.empty()){
 		std::list<Trigger*>::iterator it;
 		for (it = triggers.begin(); it != triggers.end(); ++it){
 			Trigger* index = (*it);
 			if(index->areAllConditionsMet() == true && index->areAllCommandsMet(command) == true){
-				index->activate(command);
-				std::cout<<"Trigger activated"<<std::endl;
-				statusInt = TRIGGER_ACTIVATED;//TODO chnage to only = if acyivate is true
+				if(index->activate(command) == true){
+					//std::cout<<"Trigger activated"<<std::endl;
+					statusInt = TRIGGER_ACTIVATED;
+				}
 			}
+		}
+	}
+	/* Check creature triggers */
+	//std::cout<<"Check creature triggers"<<std::endl;
+	if(!creatures.empty()){
+		std::list<Creature*>::iterator it;
+		for(it = creatures.begin(); it != creatures.end(); ++it){
+			Creature* index = (*it);
+			statusInt = index->checkTriggers(command);
 		}
 	}
 	return statusInt;
@@ -104,7 +115,7 @@ Item* Room::getItemAll(string item){
 }
 
 /*
- *
+ * Get item from  room list items
  */
 Item* Room::getItemRoom(string item){
 	std::list<Item*>::iterator it;

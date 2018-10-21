@@ -33,6 +33,30 @@ std::string Creature::getStatus(){
 	return (string)status;
 }
 
+/*
+ *
+ */
+int Creature::checkTriggers(string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			//std::cout<<"checking cond"<<std::endl;
+			if(index->areAllConditionsMet() == true && index->areAllCommandsMet(command) == true){
+				if(index->activate(command) == true){
+					//std::cout<<"Creature::checkTriggers Trigger activated"<<std::endl;
+					statusInt = TRIGGER_ACTIVATED;
+				}
+			}
+		}
+	}
+	return statusInt;
+}
+
+/*
+ * Print creature in readable format
+ */
 int Creature::print(){
 	int statusInt = OK;
 	if(name != NULL)

@@ -86,8 +86,8 @@ int Element::doAction(string actionStr){
 	/* Parse out the action */
 	std::string firstWord = actionStr.substr(0,actionStr.find(" "));
 	if(firstWord.compare("Update") == STR_EQUAL){
-		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to"));
-		std::string statusStr = actionStr.substr(actionStr.find("to ")+1,actionStr.length());
+		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-1);
+		std::string statusStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
 		std::cout<<"Element::doAction: Update "<<objStr<<" to "<<statusStr<<std::endl;
 		Element* obj = this->getElement(objStr);
 		if(obj != NULL){
@@ -96,8 +96,8 @@ int Element::doAction(string actionStr){
 	}
 	else if(firstWord.compare("Add") == STR_EQUAL){
 		std::cout<<"ERROR TODO Add"<<std::endl;
-		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to"));
-		std::string toStr = actionStr.substr(actionStr.find("to ")+1,actionStr.length());
+		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-1);
+		std::string toStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
 		std::cout<<"Element::doAction: Add "<<objStr<<" to "<<toStr<<std::endl;
 		Element* obj = this->getElement(objStr);
 		Element* to = this->getElement(toStr);

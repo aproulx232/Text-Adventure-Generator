@@ -85,6 +85,7 @@ bool Trigger::areAllCommandsMet(std::string command){
 			}
 		}
 	}
+	//std::cout<<"areAllCommandsMet "<<isMet<<std::endl;
 	return isMet;
 }
 
@@ -100,6 +101,7 @@ bool Trigger::areAllConditionsMet(){
 			isMet = false;
 		}
 	}
+	//std::cout<<"areAllConditionsMet "<<isMet<<std::endl;
 	return isMet;
 }
 
@@ -113,6 +115,7 @@ bool Trigger::isConditionMet(Condition* condition){
 	if(condition->condType == STATUS){
 		Element* obj = list.getElement(condition->object);
 		if(obj != NULL){
+			//std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
 			if(obj->getStatus().compare((string)condition->status) == STR_EQUAL){
 				isMet = true;
 			}

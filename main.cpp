@@ -97,6 +97,7 @@ int main(){
  * Clean trigger
  * have container check trigger
  * have room check creature triggers too
+ * need a way to distiguis between different triggers
  * have player class with list of items and curr room. has pointers to elements in maplist
  */
 
