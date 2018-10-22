@@ -96,8 +96,7 @@ int main(){
  * Add command, when adding item to room, need to check containers
  * Clean trigger
  * have container check trigger
- * have room check creature triggers too
- * need a way to distiguis between different triggers
+ * need a way to distiguis between different triggers- maybe not
  * have player class with list of items and curr room. has pointers to elements in maplist
  */
 

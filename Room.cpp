@@ -61,10 +61,12 @@ int Room::checkTriggers(string command){
 		std::list<Trigger*>::iterator it;
 		for (it = triggers.begin(); it != triggers.end(); ++it){
 			Trigger* index = (*it);
-			if(index->areAllConditionsMet() == true && index->areAllCommandsMet(command) == true){
-				if(index->activate(command) == true){
+			if(index->areAllConditionsMet() == true ){
+				if(index->areAllCommandsMet(command) == true){
 					//std::cout<<"Trigger activated"<<std::endl;
-					statusInt = TRIGGER_ACTIVATED;
+					if(index->activate() == true){
+						statusInt = BLOCK_INPUT_COMMAND;
+					}
 				}
 			}
 		}
@@ -75,7 +77,29 @@ int Room::checkTriggers(string command){
 		std::list<Creature*>::iterator it;
 		for(it = creatures.begin(); it != creatures.end(); ++it){
 			Creature* index = (*it);
-			statusInt = index->checkTriggers(command);
+			/* If input command is not already blocked*/
+			if(statusInt == OK){
+				statusInt = index->checkTriggers(command);
+			}
+			else{
+				index->checkTriggers(command);
+			}
+
+		}
+	}
+	/* Check container triggers */
+	if(!containers.empty()){
+		std::list<Container*>::iterator it;
+		for(it = containers.begin(); it != containers.end(); ++it){
+			Container* index = (*it);
+			/* If input command is not already blocked*/
+			if(statusInt == OK){
+				statusInt = index->checkTriggers(command);
+			}
+			else{
+				index->checkTriggers(command);
+			}
+
 		}
 	}
 	return statusInt;

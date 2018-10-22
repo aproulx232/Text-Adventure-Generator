@@ -29,6 +29,7 @@ public:
 	Item* getItem(std::string item);
 	void printContents();
 	Item* removeItem(std::string item);
+	int checkTriggers(std::string command);
 
 
 	virtual char* getName();

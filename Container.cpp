@@ -86,6 +86,29 @@ Item* Container::removeItem(std::string item){
 }
 
 /*
+ * Check the triggers of the current object to and activates them
+ */
+int Container::checkTriggers(std::string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			//std::cout<<"checking cond"<<std::endl;
+			if(index->areAllConditionsMet() == true ){
+				if(index->areAllCommandsMet(command) == true){
+					//std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
+					if(index->activate() == true){
+						statusInt = BLOCK_INPUT_COMMAND;
+					}
+				}
+			}
+		}
+	}
+	return statusInt;
+}
+
+/*
  * Prints the contents of  the container in neat format
  */
 void Container::printContents(){

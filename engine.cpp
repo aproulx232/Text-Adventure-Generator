@@ -32,7 +32,7 @@ int runGame(Element* map){
 		if(input->compare("n") == STR_EQUAL){
 			//check curr room triggers
 			//player->currentRoom->checkTriggers(*input);
-			if( player->currentRoom->checkTriggers(*input) != TRIGGER_ACTIVATED){
+			if( player->currentRoom->checkTriggers(*input) != BLOCK_INPUT_COMMAND){
 				/* Execute the command*/
 				//check if curr room has north
 				Room* border = player->currentRoom->getBorderRoom("north");

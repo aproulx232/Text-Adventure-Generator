@@ -34,19 +34,21 @@ std::string Creature::getStatus(){
 }
 
 /*
- *
+ * Check the triggers of the current object to and activates them
  */
-int Creature::checkTriggers(string command){
+int Creature::checkTriggers(std::string command){
 	int statusInt = OK;
 	if(!triggers.empty()){
 		std::list<Trigger*>::iterator it;
 		for (it = triggers.begin(); it != triggers.end(); ++it){
 			Trigger* index = (*it);
 			//std::cout<<"checking cond"<<std::endl;
-			if(index->areAllConditionsMet() == true && index->areAllCommandsMet(command) == true){
-				if(index->activate(command) == true){
+			if(index->areAllConditionsMet() == true ){
+				if(index->areAllCommandsMet(command) == true){
 					//std::cout<<"Creature::checkTriggers Trigger activated"<<std::endl;
-					statusInt = TRIGGER_ACTIVATED;
+					if(index->activate() == true){
+						statusInt = BLOCK_INPUT_COMMAND;
+					}
 				}
 			}
 		}

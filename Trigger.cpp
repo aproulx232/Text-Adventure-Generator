@@ -35,7 +35,7 @@ Trigger::~Trigger(){
  * param: string command: command from  user
  * return: bool: activated
  */
-bool Trigger::activate(string command){
+bool Trigger::activate(){
 	bool activated = false;
 	/* Check if single is already used */
 	if(((string)type).compare("used") == STR_EQUAL){
@@ -70,7 +70,7 @@ bool Trigger::isCommandMet(std::string command){
 }
 
 /*
- *
+ * If the give command is matches the trigger command, return true so that input command is blocked
  */
 bool Trigger::areAllCommandsMet(std::string command){
 	bool isMet = false;
@@ -115,10 +115,13 @@ bool Trigger::isConditionMet(Condition* condition){
 	if(condition->condType == STATUS){
 		Element* obj = list.getElement(condition->object);
 		if(obj != NULL){
-			//std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
+			std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
 			if(obj->getStatus().compare((string)condition->status) == STR_EQUAL){
 				isMet = true;
 			}
+		}
+		else{
+			std::cout<<"ERROR: Trigger::isConditionMet: obj == NULL"<<std::endl;
 		}
 	}
 	else if(condition->condType == OWNER){
