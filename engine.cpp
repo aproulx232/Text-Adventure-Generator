@@ -133,12 +133,15 @@ int runGame(Element* map){
 			}
 			if(input->find("turn on") != std::string::npos){
 				std::string itemStr = input->substr(LEN_OF_TURN_ON, input->size());
-				std::cout<<"itemstr:: "<<itemStr<<std::endl;
 				Element temp;
 				Item* item = player->getItem(itemStr);
 				if(item != NULL){
 					item->doAction((string)item->turn_on_Action);
+					std::cout<<"You activate the "<<itemStr<<std::endl;
 					std::cout<<item->turn_on_Print<<std::endl;
+				}
+				else{
+					std::cout<<itemStr<<" is not in your inventory"<<std::endl;
 				}
 				player->currentRoom->checkTriggers(*input);
 				//std::cout<<item->status<<std::endl;

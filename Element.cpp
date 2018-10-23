@@ -81,17 +81,20 @@ std::string Element::getStatus(){
  * Does the action string of the Element
  */
 
-int Element::doAction(string actionStr){
+int Element::doAction(std::string actionStr){
 	int statusInt = OK;
 	/* Parse out the action */
 	std::string firstWord = actionStr.substr(0,actionStr.find(" "));
 	if(firstWord.compare("Update") == STR_EQUAL){
-		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-1);
+		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to ")-actionStr.find(" ")-1);
 		std::string statusStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
-		std::cout<<"Element::doAction: Update "<<objStr<<" to "<<statusStr<<std::endl;
+		std::cout<<"Element::doAction: Update \""<<objStr<<"\" to \""<<statusStr<<"\""<<std::endl;
 		Element* obj = this->getElement(objStr);
 		if(obj != NULL){
 			obj->setStatus(statusStr);
+		}
+		else{
+			std::cout<<"ERROR: Element::doAction: obj == NULL: objst \""<<objStr<<"\""<<std::endl;
 		}
 	}
 	else if(firstWord.compare("Add") == STR_EQUAL){
