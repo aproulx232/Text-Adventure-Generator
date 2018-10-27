@@ -56,6 +56,55 @@ int Creature::checkTriggers(std::string command){
 	return statusInt;
 }
 
+
+/*
+ * Attack the creature with the Item.
+ *
+ */
+int Creature::attackWith(Item* item){
+	int statusInt = OK;
+	std::list<char*>::iterator vulIt;
+	for (vulIt = vulnerabilities.begin(); vulIt != vulnerabilities.end(); ++vulIt){
+		char* index = (*vulIt);
+		if(strcmp(item->name, index) == STR_EQUAL){
+			statusInt = START_ATTACK;
+		}
+
+	}
+	if(statusInt == START_ATTACK){
+		/* Iterate through all attacks */
+		std::list<Attack*>::iterator attckit;
+		for (attckit = attacks.begin(); attckit != attacks.end(); ++attckit){
+			Attack* attack = (*attckit);
+			/* Iterate through all conditions of each attack */
+			std::list<Condition*>::iterator attckCond;
+			for (attckCond = attack->conditions.begin(); attckCond != attack->conditions.end(); ++attckCond){
+				Condition* condition = (*attckCond);
+				/* Check if the condition is met */
+				if(condition->isConditionMet()){
+					/* Do prints */
+					std::list<char*>::iterator printIt;
+					for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){
+						std::cout<<(*printIt)<<std::endl;
+					}
+					/* Do action */
+					std::list<char*>::iterator actionIt;
+					for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
+						std::cout<<"action: "<<(*actionIt)<<std::endl;
+						Element action;
+						action.doAction((string)(*actionIt));
+					}
+				}
+			}
+		}
+	}
+	else{
+		std::cout<<"creature "<<name<<" not vulnerable to "<<item->name<<std::endl;
+	}
+
+	return statusInt;
+}
+
 /*
  * Print creature in readable format
  */

@@ -14,6 +14,7 @@
 using namespace std;
 
 list<Element*> Element::mapList = {};
+list<Element*> Element::deleteList = {};
 
 Element::Element(){
 

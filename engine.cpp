@@ -157,7 +157,6 @@ int runGame(Element* map){
 							player->deleteItem(item->name);
 						}
 						statusInt = containerToAdd->checkTriggers(*input);
-
 					}
 					else{
 						std::cout<<"No "<<containerToAdd<<" in the room "<<player->currentRoom->name<<std::endl;
@@ -165,6 +164,24 @@ int runGame(Element* map){
 				}
 				else{
 					std::cout<<"No "<<itemStr<<" in your inventory"<<std::endl;
+				}
+			}
+			else if(firstWord.compare("attack") == STR_EQUAL){
+				std::string creatureStr = input->substr(7, input->find(" with ") -7);
+				Creature* creatureToAttack = player->currentRoom->getCreatureRoom(creatureStr);
+				if(creatureToAttack != NULL){
+					std::string itemStr = input->substr(input->find(" with ")+6, input->size());
+					Item* attackItem = player->getItem(itemStr);
+					if(attackItem != NULL){
+						/* Attack creature with item */
+						creatureToAttack->attackWith(attackItem);
+					}
+					else{
+						std::cout<<"No "<<itemStr<<" in your inventory"<<std::endl;
+					}
+				}
+				else{
+					std::cout<<"No creature "<<creatureStr<<" in "<<player->currentRoom->name<<std::endl;
 				}
 			}
 			else if(input->compare("n") == STR_EQUAL){

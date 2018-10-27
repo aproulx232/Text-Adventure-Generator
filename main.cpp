@@ -93,11 +93,7 @@ int main(){
 
 /*
  * TODO LIST:
- * Add command, when adding item to room, need to check containers
- * Clean trigger
- * have container check trigger
- * need a way to distiguis between different triggers- maybe not
- * have player class with list of items and curr room. has pointers to elements in maplist
+ * make add and delete commands
  */
 
 

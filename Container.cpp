@@ -92,7 +92,6 @@ int Container::addItem(std::string item){
 	int statusInt = OK;
 	if(!accepts.empty()){
 		/* Check if item is in accept list*/
-		Item* match = NULL;
 		std::list<char*>::iterator it;
 		for (it = accepts.begin(); it != accepts.end(); ++it){
 			char* index = (*it);

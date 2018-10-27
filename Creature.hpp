@@ -11,6 +11,7 @@
 #include "Element.hpp"
 #include "Trigger.hpp"
 #include "Attack.hpp"
+#include "Item.hpp"
 
 class Creature: public Element{
 public:
@@ -22,6 +23,7 @@ public:
 	std::list<Trigger*> triggers;
 	Creature();
 	int checkTriggers(string command);
+	int attackWith(Item* item);
 	virtual char* getName();
 	virtual int print();
 	virtual std::string getStatus();

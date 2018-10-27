@@ -22,6 +22,7 @@ public:
 	Condition();
 	virtual~Condition();
 	int print();
+	bool isConditionMet();
 
 
 };

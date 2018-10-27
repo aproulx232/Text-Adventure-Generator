@@ -32,12 +32,13 @@ public:
 	std::list <Trigger*> triggers;
 	Room();
 	Room(char* name,char* status);
-	Room* getBorderRoom(string s);
+	Room* getBorderRoom(std::string s);
 	int checkTriggers();
-	int checkTriggers(string command);
-	Item* getItemAll(string item);
+	int checkTriggers(std::string command);
+	Item* getItemAll(std::string item);
 	void addItem(Item* item);
-	Item* getItemRoom(string item);
+	Item* getItemRoom(std::string item);
+	Creature* getCreatureRoom(std::string creature);
 	Item* removeItemRoom(std::string item);
 	Item* removeItemAll(std::string item);
 

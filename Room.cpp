@@ -198,6 +198,22 @@ Item* Room::removeItemAll(std::string item){
 	}
 	return match;
 }
+
+/*
+ * Get the creature pointer from room else return NULL
+ */
+Creature* Room::getCreatureRoom(std::string creature){
+	Creature* match = NULL;
+	std::list<Creature*>::iterator it;
+	for (it = creatures.begin(); it != creatures.end(); ++it){
+		Creature* index = (*it);
+		if(creature.compare((string)index->name) == STR_EQUAL){
+			match =  index;
+		}
+	}
+	return match;
+}
+
 int Room::print(){
 	int statusInt = OK;
 	if(name != NULL)
