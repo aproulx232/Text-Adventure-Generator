@@ -36,6 +36,7 @@ public:
 	int checkTriggers();
 	int checkTriggers(string command);
 	Item* getItemAll(string item);
+	void addItem(Item* item);
 	Item* getItemRoom(string item);
 	Item* removeItemRoom(std::string item);
 	Item* removeItemAll(std::string item);

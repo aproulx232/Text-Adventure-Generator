@@ -19,6 +19,7 @@ public:
 	Person();
 	Person(Element* map);
 	void addItem(Item* item);
+	Item* deleteItem(std::string item);
 	Item* getItem(string item);
 	bool hasItem(char* item);
 	char* getName();

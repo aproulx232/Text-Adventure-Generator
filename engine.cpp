@@ -125,6 +125,23 @@ int runGame(Element* map){
 				}
 
 			}
+			else if(firstWord.compare("drop") == STR_EQUAL){
+				Item* itemToDrop = player->getItem(secondWord);
+				if(itemToDrop != NULL){
+					player->deleteItem((std::string)itemToDrop->name);
+					Item* addToRoom = dynamic_cast<Item*>(player->getElement(secondWord));//->getName()<<std::endl;
+					if(addToRoom != NULL){
+						player->currentRoom->addItem(addToRoom);
+					}
+					else{
+						std::cout<<"ERROR: drop: addToRoom == NULL"<<std::endl;
+					}
+
+				}
+				else{
+					std::cout<<"No "<<secondWord<<" in your inventory"<<std::endl;
+				}
+			}
 			else if(input->compare("n") == STR_EQUAL){
 
 			}

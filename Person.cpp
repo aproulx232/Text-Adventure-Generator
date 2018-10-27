@@ -59,6 +59,20 @@ void Person::addItem(Item* item){
 }
 
 /*
+ * Remove item from inventory
+ */
+Item* Person::deleteItem(std::string item){
+	Item* match = NULL;
+	std::list<Item*>::iterator it;
+	for (it = inventory.begin(); it != inventory.end(); ++it){
+		Item* index = (*it);
+		if(item.compare((string)index->name) == STR_EQUAL){
+			inventory.erase(it);
+		}
+	}
+	return match;
+}
+/*
  * Gets item from player's inventory
  * Param: string item: name of item pointer to return
  */

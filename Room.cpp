@@ -43,6 +43,15 @@ Room* Room::getBorderRoom(string direction){
 	return NULL;
 
 }
+
+/*
+ * Adds item to room item list
+ */
+void Room::addItem(Item* item){
+	items.push_back(item);
+	return;
+}
+
 /* Check if any of the triggers in room are tiggered and triggers them
  *
  */
