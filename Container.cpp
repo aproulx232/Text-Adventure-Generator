@@ -86,6 +86,46 @@ Item* Container::removeItem(std::string item){
 }
 
 /*
+ * Adds the item to the container If accepts in present, only add if itme is on list then opens, else if opened, adds to item list
+ */
+int Container::addItem(std::string item){
+	int statusInt = OK;
+	if(!accepts.empty()){
+		/* Check if item is in accept list*/
+		Item* match = NULL;
+		std::list<char*>::iterator it;
+		for (it = accepts.begin(); it != accepts.end(); ++it){
+			char* index = (*it);
+			if(item.compare((string)index) == STR_EQUAL){
+				/* Item in accept list*/
+				opened = true;
+				items.push_back(index);
+				statusInt = CONTAINER_ITEM_ADDED;
+				std::cout<<"Item "<<item<<" added to "<<name<<"."<<std::endl;
+			}
+		}
+		if(statusInt != CONTAINER_ITEM_ADDED){
+			statusInt = CONTAINER_ITEM_NOT_ACCEPTED;
+			std::cout<<name<<" does not accept "<<item<<std::endl;
+		}
+	}
+	else{
+		if(opened == true){
+			/* Add item to list */
+			char *cstr = new char[item.length() + 1];
+			strcpy(cstr, item.c_str());
+			items.push_back(cstr);
+			statusInt = CONTAINER_ITEM_ADDED;
+			std::cout<<"Item "<<item<<" added to "<<name<<"."<<std::endl;
+		}
+		else{
+			std::cout<<name<<" needs to be opened first"<<std::endl;
+		}
+	}
+	return statusInt;
+}
+
+/*
  * Check the triggers of the current object to and activates them
  */
 int Container::checkTriggers(std::string command){
@@ -121,13 +161,15 @@ void Container::printContents(){
 	else{
 		std::cout<<"contains ";
 		for (it = items.begin(); it != items.end(); ++it){
-			Item* index = dynamic_cast<Item*>(this->getElement((*it)));
+			Item* index = NULL;
+			index = dynamic_cast<Item*>(this->getElement((*it)));
 			if(index != NULL){
 				if(printedFirstItem == true){
 					std::cout<<", "<<index->name;
 				}
 				else{
 					std::cout<<index->name;
+					printedFirstItem = true;
 				}
 			}
 		}

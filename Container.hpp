@@ -27,6 +27,7 @@ public:
 	Container();
 	bool hasItem(char*);
 	Item* getItem(std::string item);
+	int addItem(std::string item);
 	void printContents();
 	Item* removeItem(std::string item);
 	int checkTriggers(std::string command);

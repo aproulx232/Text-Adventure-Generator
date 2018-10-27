@@ -132,6 +132,7 @@ int runGame(Element* map){
 					Item* addToRoom = dynamic_cast<Item*>(player->getElement(secondWord));//->getName()<<std::endl;
 					if(addToRoom != NULL){
 						player->currentRoom->addItem(addToRoom);
+						std::cout<<secondWord<<" dropped."<<std::endl;
 					}
 					else{
 						std::cout<<"ERROR: drop: addToRoom == NULL"<<std::endl;
@@ -140,6 +141,30 @@ int runGame(Element* map){
 				}
 				else{
 					std::cout<<"No "<<secondWord<<" in your inventory"<<std::endl;
+				}
+			}
+			else if(firstWord.compare("put") == STR_EQUAL){
+				std::string itemStr = input->substr(4, input->find(" in ") -4);
+				Item* item = player->getItem(itemStr);
+				if(item != NULL){
+					std::string containerStr = input->substr(input->find(" in ")+4, input->size());
+					std::cout<<"containerStr: "<<containerStr<<std::endl;
+					Container* containerToAdd = dynamic_cast<Container*>(player->getElement(containerStr));
+					if(containerToAdd != NULL){
+						//TODO need to check if container has an accept or not, if yes, need to chek if item is correct
+						int statusInt = containerToAdd->addItem(item->name);
+						if(statusInt == CONTAINER_ITEM_ADDED){
+							player->deleteItem(item->name);
+						}
+						statusInt = containerToAdd->checkTriggers(*input);
+
+					}
+					else{
+						std::cout<<"No "<<containerToAdd<<" in the room "<<player->currentRoom->name<<std::endl;
+					}
+				}
+				else{
+					std::cout<<"No "<<itemStr<<" in your inventory"<<std::endl;
 				}
 			}
 			else if(input->compare("n") == STR_EQUAL){

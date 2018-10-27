@@ -67,6 +67,7 @@ Item* Person::deleteItem(std::string item){
 	for (it = inventory.begin(); it != inventory.end(); ++it){
 		Item* index = (*it);
 		if(item.compare((string)index->name) == STR_EQUAL){
+			match = dynamic_cast<Item*>(this->getElement(item));
 			inventory.erase(it);
 		}
 	}
