@@ -113,7 +113,6 @@ int runGame(Element* map){
 						container->printContents();
 					}
 				}
-
 			}
 			else if(firstWord.compare("read") == STR_EQUAL){
 				Item* itemToRead = player->getItem(secondWord);
@@ -123,7 +122,6 @@ int runGame(Element* map){
 				else{
 					std::cout<<"No "<<secondWord<<" in your inventory"<<std::endl;
 				}
-
 			}
 			else if(firstWord.compare("drop") == STR_EQUAL){
 				Item* itemToDrop = player->getItem(secondWord);
@@ -152,9 +150,9 @@ int runGame(Element* map){
 					Container* containerToAdd = dynamic_cast<Container*>(player->getElement(containerStr));
 					if(containerToAdd != NULL){
 						//TODO need to check if container has an accept or not, if yes, need to chek if item is correct
-						int statusInt = containerToAdd->addItem(item->name);
+						statusInt = containerToAdd->addItem((std::string)item->name);
 						if(statusInt == CONTAINER_ITEM_ADDED){
-							player->deleteItem(item->name);
+							player->deleteItem((std::string)item->name);
 						}
 						statusInt = containerToAdd->checkTriggers(*input);
 					}

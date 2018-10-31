@@ -66,8 +66,10 @@ Item* Person::deleteItem(std::string item){
 	std::list<Item*>::iterator it;
 	for (it = inventory.begin(); it != inventory.end(); ++it){
 		Item* index = (*it);
-		if(item.compare((string)index->name) == STR_EQUAL){
-			match = dynamic_cast<Item*>(this->getElement(item));
+		if(item.compare((std::string)index->name) == STR_EQUAL){
+			std::cout<<"Person::deleteItem: deleting "<<index->name<<std::endl;
+			//match = dynamic_cast<Item*>(this->getElement(item));
+			match = index;
 			inventory.erase(it);
 		}
 	}

@@ -97,11 +97,13 @@ int Room::checkTriggers(string command){
 		}
 	}
 	/* Check container triggers */
+	/*
 	if(!containers.empty()){
 		std::list<Container*>::iterator it;
+		std::cout<<"Room::checkTriggers !containers.empty()"<<std::endl;
 		for(it = containers.begin(); it != containers.end(); ++it){
 			Container* index = (*it);
-			/* If input command is not already blocked*/
+			// If input command is not already blocked
 			if(statusInt == OK){
 				statusInt = index->checkTriggers(command);
 			}
@@ -111,6 +113,7 @@ int Room::checkTriggers(string command){
 
 		}
 	}
+	*/
 	return statusInt;
 }
 
@@ -214,6 +217,33 @@ Creature* Room::getCreatureRoom(std::string creature){
 	return match;
 }
 
+/*
+ * Finds type of element and adds it to the correct list of room
+ */
+int Room::add(Element* add){
+	int statusInt = OK;
+	Item* addItem = dynamic_cast<Item*>(add);
+	Creature* addCreature = dynamic_cast<Creature*>(add);
+	Container* addContainer = dynamic_cast<Container*>(add);
+	if(addItem != NULL){
+		items.push_back(addItem);
+	}
+	else if(addCreature != NULL){
+		creatures.push_back(addCreature);
+	}
+	else if(addContainer != NULL){
+		containers.push_back(addContainer);
+	}
+	else{
+		statusInt = ERROR;
+		std::cout<<"ERROR: Room::add(Element* add) unknown add type"<<std::endl;
+	}
+	return statusInt;
+}
+
+/*
+ * Prints a readable output of room
+ */
 int Room::print(){
 	int statusInt = OK;
 	if(name != NULL)

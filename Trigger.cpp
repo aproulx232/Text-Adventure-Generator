@@ -37,12 +37,15 @@ Trigger::~Trigger(){
  */
 bool Trigger::activate(){
 	bool activated = false;
+	/* Check if type is null */
+	if( type != NULL){
 	/* Check if single is already used */
-	if(((string)type).compare("used") == STR_EQUAL){
-		return activated;
-	}
-	if(((string)type).compare("single") == STR_EQUAL){
-		type = (char*)"used";
+		if(((string)type).compare("used") == STR_EQUAL){
+			return activated;
+		}
+		if(((string)type).compare("single") == STR_EQUAL){
+			type = (char*)"used";
+		}
 	}
 	/* Print trigger prints*/
 	std::list<char*>::iterator it;
@@ -116,8 +119,9 @@ bool Trigger::isConditionMet(Condition* condition){
 		Element* obj = list.getElement(condition->object);
 		if(obj != NULL){
 			std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
-			if(obj->getStatus().compare((string)condition->status) == STR_EQUAL){
+			if(obj->getStatus().compare((std::string)condition->status) == STR_EQUAL){
 				isMet = true;
+				std::cout<<"isMet = true;"<<std::endl;
 			}
 		}
 		else{
@@ -125,6 +129,7 @@ bool Trigger::isConditionMet(Condition* condition){
 		}
 	}
 	else if(condition->condType == OWNER){
+		std::cout<<"isConditionMet: owner "<<condition->owner<<" - obj: "<<condition->object<<std::endl;
 		Element* obj = list.getElement(condition->object);
 		Item* objItem = dynamic_cast<Item*>(obj);
 		Element* owner = list.getElement(condition->owner);//TODO clean up
@@ -132,6 +137,7 @@ bool Trigger::isConditionMet(Condition* condition){
 		Person* ownerPlayer = dynamic_cast<Person*>(owner);
 		if(objItem != NULL){
 			if(ownerContainer != NULL){
+				std::cout<<"ownerContainer != NULL"<<std::endl;
 				if(strcmp(condition->has,(char*)"yes") == STR_EQUAL){
 					if(ownerContainer->hasItem(objItem->name) == true){
 						isMet = true;
@@ -143,7 +149,7 @@ bool Trigger::isConditionMet(Condition* condition){
 					}
 				}
 			}
-			else{
+			else if(ownerPlayer != NULL){
 				if(strcmp(condition->has,(char*)"yes") == STR_EQUAL){
 					if(ownerPlayer->hasItem(objItem->name) == true){
 						isMet = true;
@@ -155,6 +161,12 @@ bool Trigger::isConditionMet(Condition* condition){
 					}
 				}
 			}
+			else{
+				std::cout<<"owner == NULL"<<std::endl;
+			}
+		}
+		else{
+			std::cout<<"objItem == NULL"<<std::endl;
 		}
 	}
 	else{

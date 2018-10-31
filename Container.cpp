@@ -98,6 +98,8 @@ int Container::addItem(std::string item){
 			if(item.compare((string)index) == STR_EQUAL){
 				/* Item in accept list*/
 				opened = true;
+				char *cstr = new char[item.length() + 1];
+				strcpy(cstr, item.c_str());
 				items.push_back(index);
 				statusInt = CONTAINER_ITEM_ADDED;
 				std::cout<<"Item "<<item<<" added to "<<name<<"."<<std::endl;
@@ -124,6 +126,24 @@ int Container::addItem(std::string item){
 	return statusInt;
 }
 
+
+/*
+ * Finds type of element and adds it to the correct list of room
+ */
+int Container::add(Element* add){
+	int statusInt = OK;
+	Item* addItem = dynamic_cast<Item*>(add);
+	if(addItem != NULL){
+		items.push_back(addItem->name);
+	}
+	else{
+		statusInt = ERROR;
+		std::cout<<"ERROR: Container::add(Element* add)) unknown add type"<<std::endl;
+	}
+	return statusInt;
+}
+
+
 /*
  * Check the triggers of the current object to and activates them
  */
@@ -133,10 +153,10 @@ int Container::checkTriggers(std::string command){
 		std::list<Trigger*>::iterator it;
 		for (it = triggers.begin(); it != triggers.end(); ++it){
 			Trigger* index = (*it);
-			//std::cout<<"checking cond"<<std::endl;
+			std::cout<<"checking cond"<<std::endl;
 			if(index->areAllConditionsMet() == true ){
 				if(index->areAllCommandsMet(command) == true){
-					//std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
+					std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
 					if(index->activate() == true){
 						statusInt = BLOCK_INPUT_COMMAND;
 					}

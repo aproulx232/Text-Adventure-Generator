@@ -6,6 +6,8 @@
  */
 
 #include "Element.hpp"
+#include "Room.hpp"
+#include "Container.hpp"
 #include "util.hpp"
 
 #include <string.h>
@@ -79,6 +81,14 @@ std::string Element::getStatus(){
 }
 
 /*
+ * Has to be over ridden by a function
+ */
+int Element::add(Element* add){
+	int statusInt = ERROR;
+	std::cout<<"Element::add()"<<std::endl;
+	return statusInt;
+}
+/*
  * Does the action string of the Element
  */
 
@@ -99,14 +109,27 @@ int Element::doAction(std::string actionStr){
 		}
 	}
 	else if(firstWord.compare("Add") == STR_EQUAL){
-		std::cout<<"ERROR TODO Add"<<std::endl;
-		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-1);
+		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-(actionStr.find(" ")+1));
 		std::string toStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
-		std::cout<<"Element::doAction: Add "<<objStr<<" to "<<toStr<<std::endl;
+		std::cout<<"Element::doAction: Add \""<<objStr<<"\" to \""<<toStr<<"\""<<std::endl;
 		Element* obj = this->getElement(objStr);
 		Element* to = this->getElement(toStr);
 		if(obj != NULL && to != NULL){
-			//TODO
+			Room* addToRoom = dynamic_cast<Room*>(to);
+			Container* addToContainer = dynamic_cast<Container*>(to);
+			if(addToRoom != NULL){
+				statusInt = addToRoom->add(obj);
+			}
+			else if(addToContainer != NULL){
+				statusInt = addToContainer->add(obj);
+			}
+			else{
+				std::cout<<"Element::doAction: Add unknown to"<<std::endl;
+			}
+
+		}
+		else{
+			std::cout<<"ERROR unknown (object) to (room/container) "<<std::endl;
 		}
 	}
 	else if(firstWord.compare("Delete") == STR_EQUAL){
