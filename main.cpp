@@ -48,7 +48,7 @@ int main(){
 	Element* map = new Element();
 	status = buildGame(buffer, map);
 	status = runGame(map);
-	cout<< "status: "<<status<<endl;
+	//cout<< "status: "<<status<<endl;
 	/*
 	xml_document<> doc;    // character type defaults to char
 	doc.parse<0>(buffer);    // 0 means default parse flags

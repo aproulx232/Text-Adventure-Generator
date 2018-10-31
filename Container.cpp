@@ -41,7 +41,7 @@ bool Container::hasItem(char* itemName){
 
 int Container::setStatus(std::string newStatus){
 	std::cout<<"Container::setStatus"<<std::endl;
-	status = strdup(newStatus.c_str());
+	//status = strdup(newStatus.c_str());
 	return OK;
 }
 
@@ -153,10 +153,10 @@ int Container::checkTriggers(std::string command){
 		std::list<Trigger*>::iterator it;
 		for (it = triggers.begin(); it != triggers.end(); ++it){
 			Trigger* index = (*it);
-			std::cout<<"checking cond"<<std::endl;
+			//std::cout<<"checking cond"<<std::endl;
 			if(index->areAllConditionsMet() == true ){
 				if(index->areAllCommandsMet(command) == true){
-					std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
+					//std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
 					if(index->activate() == true){
 						statusInt = BLOCK_INPUT_COMMAND;
 					}

@@ -33,7 +33,7 @@ int buildGame(char * buffer, Element * map){
 	else{
 		xml_node<> * firstNode = mapNode->first_node();
 		for(xml_node<> * nodeIndex = firstNode; nodeIndex; nodeIndex= nodeIndex->next_sibling()){
-			std::cout << nodeIndex->name()<<std::endl;
+			//std::cout << nodeIndex->name()<<std::endl;
 			if(strcmp(nodeIndex->name(),(char*)"room") == STR_EQUAL){
 				Room* room = new Room();
 				map->mapList.push_back(room);
@@ -91,7 +91,7 @@ int buildGame(char * buffer, Element * map){
 			}
 		}
 	}
-	map->printMapList();
+	//map->printMapList();
 	return status;
 }
 
@@ -99,7 +99,7 @@ int buildGame(char * buffer, Element * map){
 int buildRoom(xml_node<> * node, Room * room){
 	int status = OK;
 	for(xml_node<> * roomNodeIndex = node->first_node(); roomNodeIndex; roomNodeIndex = roomNodeIndex->next_sibling()){
-		cout<<roomNodeIndex->name()<<endl;
+		//cout<<roomNodeIndex->name()<<endl;
 		if(strcmp(roomNodeIndex->name(),(char*)"name") == STR_EQUAL){
 			room->name = roomNodeIndex->value();
 		}

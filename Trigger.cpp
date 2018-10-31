@@ -55,7 +55,7 @@ bool Trigger::activate(){
 	/* Do trigger action*/
 	//std::list<char*>::iterator it; //TODO
 	for (it = actions.begin(); it != actions.end(); ++it){
-		std::cout<<"action: "<<(*it)<<std::endl;
+		//std::cout<<"action: "<<(*it)<<std::endl;
 		Element action;
 		action.doAction((string)(*it));
 	}
@@ -118,10 +118,10 @@ bool Trigger::isConditionMet(Condition* condition){
 	if(condition->condType == STATUS){
 		Element* obj = list.getElement(condition->object);
 		if(obj != NULL){
-			std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
+			//std::cout<<"isConditionMet: "<<condition->status<<" - "<<obj->getStatus()<<std::endl;
 			if(obj->getStatus().compare((std::string)condition->status) == STR_EQUAL){
 				isMet = true;
-				std::cout<<"isMet = true;"<<std::endl;
+				//std::cout<<"isMet = true;"<<std::endl;
 			}
 		}
 		else{
@@ -129,7 +129,7 @@ bool Trigger::isConditionMet(Condition* condition){
 		}
 	}
 	else if(condition->condType == OWNER){
-		std::cout<<"isConditionMet: owner "<<condition->owner<<" - obj: "<<condition->object<<std::endl;
+		//std::cout<<"isConditionMet: owner "<<condition->owner<<" - obj: "<<condition->object<<std::endl;
 		Element* obj = list.getElement(condition->object);
 		Item* objItem = dynamic_cast<Item*>(obj);
 		Element* owner = list.getElement(condition->owner);//TODO clean up
@@ -137,7 +137,7 @@ bool Trigger::isConditionMet(Condition* condition){
 		Person* ownerPlayer = dynamic_cast<Person*>(owner);
 		if(objItem != NULL){
 			if(ownerContainer != NULL){
-				std::cout<<"ownerContainer != NULL"<<std::endl;
+				//std::cout<<"ownerContainer != NULL"<<std::endl;
 				if(strcmp(condition->has,(char*)"yes") == STR_EQUAL){
 					if(ownerContainer->hasItem(objItem->name) == true){
 						isMet = true;

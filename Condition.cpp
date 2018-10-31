@@ -40,7 +40,7 @@ bool Condition::isConditionMet(){
 	if(this->condType == STATUS){
 		Element* obj = list.getElement(this->object);
 		if(obj != NULL){
-			std::cout<<"isConditionMet: "<<this->status<<" - "<<obj->getStatus()<<std::endl;
+			//std::cout<<"isConditionMet: "<<this->status<<" - "<<obj->getStatus()<<std::endl;
 			if(obj->getStatus().compare((string)this->status) == STR_EQUAL){
 				isMet = true;
 			}

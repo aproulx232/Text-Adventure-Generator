@@ -31,7 +31,7 @@ char* Item::getName(){
 }
 
 int Item::setStatus(std::string newStatus){
-	std::cout<<"Item::setStatus"<<std::endl;
+	//std::cout<<"Item::setStatus"<<std::endl;
 	status = strdup(newStatus.c_str());
 	return OK;
 }

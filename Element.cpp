@@ -99,7 +99,7 @@ int Element::doAction(std::string actionStr){
 	if(firstWord.compare("Update") == STR_EQUAL){
 		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to ")-actionStr.find(" ")-1);
 		std::string statusStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
-		std::cout<<"Element::doAction: Update \""<<objStr<<"\" to \""<<statusStr<<"\""<<std::endl;
+		//std::cout<<"Element::doAction: Update \""<<objStr<<"\" to \""<<statusStr<<"\""<<std::endl;
 		Element* obj = this->getElement(objStr);
 		if(obj != NULL){
 			obj->setStatus(statusStr);
@@ -111,7 +111,7 @@ int Element::doAction(std::string actionStr){
 	else if(firstWord.compare("Add") == STR_EQUAL){
 		std::string objStr = actionStr.substr(actionStr.find(" ")+1,actionStr.find(" to")-(actionStr.find(" ")+1));
 		std::string toStr = actionStr.substr(actionStr.find("to ")+3,actionStr.length());
-		std::cout<<"Element::doAction: Add \""<<objStr<<"\" to \""<<toStr<<"\""<<std::endl;
+		//std::cout<<"Element::doAction: Add \""<<objStr<<"\" to \""<<toStr<<"\""<<std::endl;
 		Element* obj = this->getElement(objStr);
 		Element* to = this->getElement(toStr);
 		if(obj != NULL && to != NULL){
@@ -124,7 +124,7 @@ int Element::doAction(std::string actionStr){
 				statusInt = addToContainer->add(obj);
 			}
 			else{
-				std::cout<<"Element::doAction: Add unknown to"<<std::endl;
+				std::cout<<"ERROR Element::doAction: Add unknown to"<<std::endl;
 			}
 
 		}

@@ -29,7 +29,7 @@ Person::Person(Element* map){
 		Room* index = (dynamic_cast<Room*>(*it));
 		if(index != NULL){
 			if(strcmp(index->name, (char*)"Entrance")==0 ){
-				std::cout<<"set curr room"<<std::endl;
+				//std::cout<<"set curr room"<<std::endl;
 				currentRoom = index;
 			}
 		}
@@ -67,9 +67,9 @@ Item* Person::deleteItem(std::string item){
 	for (it = inventory.begin(); it != inventory.end(); ++it){
 		Item* index = (*it);
 		if(item.compare((std::string)index->name) == STR_EQUAL){
-			std::cout<<"Person::deleteItem: deleting "<<index->name<<std::endl;
-			//match = dynamic_cast<Item*>(this->getElement(item));
-			match = index;
+			//std::cout<<"Person::deleteItem: deleting "<<index->name<<std::endl;
+			match = dynamic_cast<Item*>(this->getElement(item));
+			//match = index;
 			inventory.erase(it);
 		}
 	}

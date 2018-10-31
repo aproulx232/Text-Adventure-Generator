@@ -90,7 +90,7 @@ int Creature::attackWith(Item* item){
 					/* Do action */
 					std::list<char*>::iterator actionIt;
 					for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
-						std::cout<<"action: "<<(*actionIt)<<std::endl;
+						//std::cout<<"action: "<<(*actionIt)<<std::endl;
 						Element action;
 						action.doAction((string)(*actionIt));
 					}
