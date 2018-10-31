@@ -22,7 +22,7 @@ public:
 	Item* deleteItem(std::string item);
 	Item* getItem(string item);
 	bool hasItem(char* item);
-	char* getName();
+	virtual char* getName();
 	void printInventory();
 };
 

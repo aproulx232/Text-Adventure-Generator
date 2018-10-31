@@ -39,12 +39,16 @@ Element* Element::getElement(char* name){
 
 Element* Element::getElement(std::string name){
 	std::list<Element*>::iterator it;
+	Element* match = NULL;
 	for (it = mapList.begin(); it != mapList.end(); ++it){
 		if(name.compare((string)(*it)->getName()) == STR_EQUAL){
-			return (dynamic_cast<Element*>(*it));
+			match= (dynamic_cast<Element*>(*it));
 		}
 	}
-	return NULL;
+	if(match == NULL){
+		std::cout<<"ERROR: Element::getElement(std::string name)"<<std::endl;
+	}
+	return match;
 }
 
 char * Element::getName(){
@@ -96,7 +100,7 @@ int Element::add(Element* add){
  */
 int Element::deleteElement(std::string toDelete){
 	int statusInt = ERROR;
-	std::cout<<"Element::deleteElement"<<std::endl;
+	//std::cout<<"Element::deleteElement"<<std::endl;//rmp
 	return statusInt;
 }
 
@@ -145,7 +149,7 @@ int Element::doAction(std::string actionStr){
 	}
 	else if(firstWord.compare("Delete") == STR_EQUAL){
 		std::string toDelete = actionStr.substr(actionStr.find(" ")+1,actionStr.length());
-		std::cout<<"toDelete:"<<toDelete<<std::endl;
+		//std::cout<<"toDelete:"<<toDelete<<std::endl;//rmp
 
 		//go through maplist and call delete(string) on every element
 		std::list<Element*>::iterator it;
@@ -161,7 +165,14 @@ int Element::doAction(std::string actionStr){
 		statusInt = QUIT_GAME;
 	}
 	else{
-		statusInt = runUserCommand(actionStr, dynamic_cast<Person*>(this->getElement(string("inventory"))));
+		//std::cout<<"runUserCommand!"<<std::endl;//rmp
+		Person* player = dynamic_cast<Person*>(this->getElement(string("inventory")));
+		if(player != NULL){
+			statusInt = runUserCommand(actionStr, player);
+		}
+		else{
+			std::cout<<"Element::doAction: player ==null!"<<std::endl;
+		}
 	}
 	return statusInt;
 }

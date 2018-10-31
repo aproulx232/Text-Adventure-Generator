@@ -31,7 +31,6 @@ public:
 	std::list <Creature*> creatures;
 	std::list <Trigger*> triggers;
 	Room();
-	Room(char* name,char* status);
 	Room* getBorderRoom(std::string s);
 	int checkTriggers();
 	int checkTriggers(std::string command);

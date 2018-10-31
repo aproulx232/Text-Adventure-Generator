@@ -62,18 +62,25 @@ void Person::addItem(Item* item){
  * Remove item from inventory
  */
 Item* Person::deleteItem(std::string item){
+	Element* element = this->getElement(item);
+	Item* deleteItem = dynamic_cast<Item*>(element);
+	if(deleteItem != NULL){
+		inventory.remove(deleteItem);
+	}/*
 	Item* match = NULL;
 	std::list<Item*>::iterator it;
 	for (it = inventory.begin(); it != inventory.end(); ++it){
 		Item* index = (*it);
 		if(item.compare((std::string)index->name) == STR_EQUAL){
-			//std::cout<<"Person::deleteItem: deleting "<<index->name<<std::endl;
+			std::cout<<"Person::deleteItem: deleting "<<index->name<<std::endl;//rmp
 			match = dynamic_cast<Item*>(this->getElement(item));
 			//match = index;
 			inventory.erase(it);
 		}
 	}
-	return match;
+	*/
+	//std::cout<<"Person::deleteItem: done "<<std::endl;//rmp
+	return deleteItem;
 }
 /*
  * Gets item from player's inventory
@@ -93,6 +100,12 @@ Item* Person::getItem(string item){
 }
 
 char* Person::getName(){
+	if(name != NULL){
+		return name;
+	}
+	else{
+		std::cout<<"Person::getName() name == NULL"<<std::endl;
+	}
 	return name;
 }
 

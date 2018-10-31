@@ -27,8 +27,14 @@ int main(){
 	char *buffer;
 
 	//fp = fopen ( "XML_Tests/sample.txt.xml" , "rb" );
-	fp = fopen ( "XML_Tests/creaturesample.xml" , "rb" );
-	if( !fp ) perror("blah.txt"),exit(1);
+	//fp = fopen ( "XML_Tests/creaturesample.xml" , "rb" );
+	//fp = fopen ( "XML_Tests/containersample.xml" , "rb" );
+	//fp = fopen ( "XML_Tests/itemsample.xml" , "rb" );
+	//fp = fopen ( "XML_Tests/roomsample.xml" , "rb" );
+	fp = fopen ( "XML_Tests/triggersample.xml" , "rb" );
+	if( !fp ){
+		perror("Invalid xml path"),exit(1);
+	}
 
 	fseek( fp , 0L , SEEK_END);
 	lSize = ftell( fp );
@@ -36,7 +42,9 @@ int main(){
 
 	/* allocate memory for entire content */
 	buffer = (char *)calloc( 1, sizeof(char)*(lSize+1) );
-	if( !buffer ) fclose(fp),fputs("memory alloc fails",stderr),exit(1);
+	if( !buffer ){
+		fclose(fp),fputs("memory alloc fails",stderr),exit(1);
+	}
 
 	/* copy the file into the buffer */
 	if( 1!=fread( buffer , lSize, 1 , fp) )
@@ -49,7 +57,9 @@ int main(){
 	Element* map = new Element();
 	status = buildGame(buffer, map);
 	status = runGame(map);
-	std::cout<< "status: "<<status<<std::endl;
+	if(status != QUIT_GAME){
+		std::cout<< "status: "<<status<<std::endl;
+	}
 	/*
 	xml_document<> doc;    // character type defaults to char
 	doc.parse<0>(buffer);    // 0 means default parse flags
@@ -95,6 +105,7 @@ int main(){
 /*
  * TODO LIST:
  * Trigger::activate() have statusInt instead of bool so can quit game
+ * item needs to initial status to not null
  */
 
 

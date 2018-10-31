@@ -97,6 +97,7 @@ Item* Container::removeItem(std::string item){
 		if(item.compare((string)index) == STR_EQUAL){
 			match = dynamic_cast<Item*>(this->getElement(index));
 			items.erase(it);
+			return match;
 		}
 	}
 	return match;

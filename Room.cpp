@@ -22,9 +22,7 @@ Room::Room(){
 	creatures = {};
 	triggers ={};
 }
-Room::Room(char* name, char* status):name(name),status(status){
 
-}
 
 char* Room::getName(){
 	return name;

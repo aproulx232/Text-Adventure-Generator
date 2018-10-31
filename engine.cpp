@@ -38,6 +38,7 @@ int runGame(Element* map){
 }
 
 int runUserCommand(std::string input,Person* player){
+	//std::cout<<"runUserCommand!"<<std::endl;//rmp
 	int statusInt = OK;
 	int validCommand = false;
 	if(input.compare("n") == STR_EQUAL){
@@ -193,9 +194,12 @@ int runUserCommand(std::string input,Person* player){
 		else if(firstWord.compare("drop") == STR_EQUAL){
 			Item* itemToDrop = player->getItem(secondWord);
 			validCommand = true;
+			//std::cout<<"firstWord.compare(drop) second word:"<<secondWord<<std::endl;//rmp
 			if(itemToDrop != NULL){
 				player->deleteItem((std::string)itemToDrop->name);
+				//std::cout<<"firstWord.compare(drop)2 "<<std::endl;//rmp
 				Item* addToRoom = dynamic_cast<Item*>(player->getElement(secondWord));//->getName()<<std::endl;
+				//std::cout<<"firstWord.compare(drop)3 "<<std::endl;//rmp
 				if(addToRoom != NULL){
 					player->currentRoom->addItem(addToRoom);
 					std::cout<<secondWord<<" dropped."<<std::endl;
@@ -257,6 +261,7 @@ int runUserCommand(std::string input,Person* player){
 			std::string itemStr = input.substr(LEN_OF_TURN_ON, input.size());
 			Element temp;
 			Item* item = player->getItem(itemStr);
+			//std::cout<<"input.find(turn on"<<std::endl;//rmp
 			if(item != NULL){
 				statusInt = item->doAction((string)item->turn_on_Action);
 				std::cout<<"You activate the "<<itemStr<<std::endl;
