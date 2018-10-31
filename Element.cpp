@@ -8,6 +8,8 @@
 #include "Element.hpp"
 #include "Room.hpp"
 #include "Container.hpp"
+#include "Person.hpp"
+#include "Engine.hpp"
 #include "util.hpp"
 
 #include <string.h>
@@ -101,7 +103,6 @@ int Element::deleteElement(std::string toDelete){
 /*
  * Does the action string of the Element
  */
-
 int Element::doAction(std::string actionStr){
 	int statusInt = OK;
 	/* Parse out the action */
@@ -154,8 +155,13 @@ int Element::doAction(std::string actionStr){
 				index->deleteElement(toDelete);
 			}
 		}
-
-
+	}
+	else if(actionStr.compare("Game Over")  == STR_EQUAL){
+		std::cout<<"Victory!"<<std::endl;
+		statusInt = QUIT_GAME;
+	}
+	else{
+		statusInt = runUserCommand(actionStr, dynamic_cast<Person*>(this->getElement(string("inventory"))));
 	}
 	return statusInt;
 }

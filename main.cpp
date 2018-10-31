@@ -49,7 +49,7 @@ int main(){
 	Element* map = new Element();
 	status = buildGame(buffer, map);
 	status = runGame(map);
-	//cout<< "status: "<<status<<endl;
+	std::cout<< "status: "<<status<<std::endl;
 	/*
 	xml_document<> doc;    // character type defaults to char
 	doc.parse<0>(buffer);    // 0 means default parse flags
@@ -94,9 +94,7 @@ int main(){
 
 /*
  * TODO LIST:
- * make delete commands
- * make so trigger action can do normal commands
- * You assault
+ * Trigger::activate() have statusInt instead of bool so can quit game
  */
 
 

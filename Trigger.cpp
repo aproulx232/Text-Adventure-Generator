@@ -37,6 +37,7 @@ Trigger::~Trigger(){
  */
 bool Trigger::activate(){
 	bool activated = false;
+	int statusInt = OK;
 	/* Check if type is null */
 	if( type != NULL){
 	/* Check if single is already used */
@@ -57,7 +58,7 @@ bool Trigger::activate(){
 	for (it = actions.begin(); it != actions.end(); ++it){
 		//std::cout<<"action: "<<(*it)<<std::endl;
 		Element action;
-		action.doAction((string)(*it));
+		statusInt = action.doAction((string)(*it));
 	}
 	activated = true;
 	return activated;

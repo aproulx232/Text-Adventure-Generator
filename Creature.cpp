@@ -118,7 +118,7 @@ int Creature::attackWith(Item* item){
 						for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
 							//std::cout<<"action: "<<(*actionIt)<<std::endl;
 							Element action;
-							action.doAction((string)(*actionIt));
+							statusInt = action.doAction((string)(*actionIt));
 						}
 					}
 				}
