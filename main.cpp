@@ -26,7 +26,8 @@ int main(){
 	long lSize;
 	char *buffer;
 
-	fp = fopen ( "XML_Tests/sample.txt.xml" , "rb" );
+	//fp = fopen ( "XML_Tests/sample.txt.xml" , "rb" );
+	fp = fopen ( "XML_Tests/creaturesample.xml" , "rb" );
 	if( !fp ) perror("blah.txt"),exit(1);
 
 	fseek( fp , 0L , SEEK_END);
@@ -93,7 +94,9 @@ int main(){
 
 /*
  * TODO LIST:
- * make add and delete commands
+ * make delete commands
+ * make so trigger action can do normal commands
+ * You assault
  */
 
 

@@ -52,6 +52,31 @@ void Room::addItem(Item* item){
 	return;
 }
 
+/*
+ *
+ */
+int Room::deleteElement(std::string toDelete){
+	int statusInt = OK;
+	Element* element = this->getElement(toDelete);
+	Room* deleteRoom = dynamic_cast<Room*>(element);
+	Container* deleteContainer = dynamic_cast<Container*>(element);
+	Creature* deleteCreature = dynamic_cast<Creature*>(element);
+	Item* deleteItem = dynamic_cast<Item*>(element);
+	if(deleteCreature != NULL){
+		creatures.remove(deleteCreature);
+	}
+	else if(deleteContainer != NULL){
+		containers.remove(deleteContainer);
+	}
+	else if(deleteItem != NULL){
+		items.remove(deleteItem);
+	}
+	else if(deleteRoom != NULL){
+		std::cout<<"TODO deleteRoom"<<std::endl;
+	}
+	return statusInt;
+}
+
 /* Check if any of the triggers in room are tiggered and triggers them
  *
  */

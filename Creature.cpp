@@ -34,6 +34,30 @@ std::string Creature::getStatus(){
 }
 
 /*
+ *
+ */
+int Creature::add(Element* add){
+	int statusInt = OK;
+	std::cout<<"TODO  Creature::add"<<std::endl;
+	return statusInt;
+}
+
+/*
+ *
+ */
+int Creature::deleteElement(std::string toDelete){
+	int statusInt = OK;
+	//std::cout<<"TODO  Creature::deleteElement("<<std::endl;
+	return statusInt;
+}
+
+
+int Creature::setStatus(std::string newStatus){
+	//std::cout<<"Container::setStatus"<<std::endl;
+	status = strdup(newStatus.c_str());
+	return OK;
+}
+/*
  * Check the triggers of the current object to and activates them
  */
 int Creature::checkTriggers(std::string command){
@@ -76,24 +100,41 @@ int Creature::attackWith(Item* item){
 		std::list<Attack*>::iterator attckit;
 		for (attckit = attacks.begin(); attckit != attacks.end(); ++attckit){
 			Attack* attack = (*attckit);
-			/* Iterate through all conditions of each attack */
-			std::list<Condition*>::iterator attckCond;
-			for (attckCond = attack->conditions.begin(); attckCond != attack->conditions.end(); ++attckCond){
-				Condition* condition = (*attckCond);
-				/* Check if the condition is met */
-				if(condition->isConditionMet()){
-					/* Do prints */
-					std::list<char*>::iterator printIt;
-					for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){
-						std::cout<<(*printIt)<<std::endl;
+			if(!attack->conditions.empty()){
+				/* Iterate through all conditions of each attack */
+				std::list<Condition*>::iterator attckCond;
+				for (attckCond = attack->conditions.begin(); attckCond != attack->conditions.end(); ++attckCond){
+					Condition* condition = (*attckCond);
+					/* Check if the condition is met */
+					if(condition->isConditionMet()){
+						std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
+						/* Do prints */
+						std::list<char*>::iterator printIt;
+						for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){
+							std::cout<<(*printIt)<<std::endl;
+						}
+						/* Do action */
+						std::list<char*>::iterator actionIt;
+						for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
+							//std::cout<<"action: "<<(*actionIt)<<std::endl;
+							Element action;
+							action.doAction((string)(*actionIt));
+						}
 					}
-					/* Do action */
-					std::list<char*>::iterator actionIt;
-					for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
-						//std::cout<<"action: "<<(*actionIt)<<std::endl;
-						Element action;
-						action.doAction((string)(*actionIt));
-					}
+				}
+			}else{
+				std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
+				/* Do prints */
+				std::list<char*>::iterator printIt;
+				for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){
+					std::cout<<(*printIt)<<std::endl;
+				}
+				/* Do action */
+				std::list<char*>::iterator actionIt;
+				for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
+					//std::cout<<"action: "<<(*actionIt)<<std::endl;
+					Element action;
+					action.doAction((string)(*actionIt));
 				}
 			}
 		}

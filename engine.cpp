@@ -52,30 +52,72 @@ int runGame(Element* map){
 					std::cout<<"Can’t go that way."<<std::endl;
 				}
 			}
-
 		}
 		else if(input->compare("s") == STR_EQUAL){
+			validCommand = true;
 			//check curr room triggers
-
-			//check if curr room has south
-			Room* borderS = player->currentRoom->getBorderRoom("south");
-			if(borderS){
-				//check if south room has triggers
-				player->currentRoom = borderS;
-				if(!borderS->triggers.empty()){
-					//check triggers if activate
-					//TODO
+			//player->currentRoom->checkTriggers(*input);
+			if( player->currentRoom->checkTriggers(*input) != BLOCK_INPUT_COMMAND){
+				/* Execute the command*/
+				//check if curr room has north
+				Room* border = player->currentRoom->getBorderRoom("south");
+				if(border != NULL){
+					//check if south room has triggers
+					player->currentRoom = border;
+					std::cout<<player->currentRoom->description<<std::endl;
+					if(!border->triggers.empty()){
+						//check triggers if activate
+						player->currentRoom->checkTriggers();
+					}
 				}
-			}
-			else{
-				std::cout<<"Can’t go that way."<<std::endl;
+				else{
+					std::cout<<"Can’t go that way."<<std::endl;
+				}
 			}
 		}
 		else if(input->compare("e") == STR_EQUAL){
-
+			validCommand = true;
+			//check curr room triggers
+			//player->currentRoom->checkTriggers(*input);
+			if( player->currentRoom->checkTriggers(*input) != BLOCK_INPUT_COMMAND){
+				/* Execute the command*/
+				//check if curr room has north
+				Room* border = player->currentRoom->getBorderRoom("east");
+				if(border != NULL){
+					//check if south room has triggers
+					player->currentRoom = border;
+					std::cout<<player->currentRoom->description<<std::endl;
+					if(!border->triggers.empty()){
+						//check triggers if activate
+						player->currentRoom->checkTriggers();
+					}
+				}
+				else{
+					std::cout<<"Can’t go that way."<<std::endl;
+				}
+			}
 		}
 		else if(input->compare("w") == STR_EQUAL){
-
+			validCommand = true;
+			//check curr room triggers
+			//player->currentRoom->checkTriggers(*input);
+			if( player->currentRoom->checkTriggers(*input) != BLOCK_INPUT_COMMAND){
+				/* Execute the command*/
+				//check if curr room has north
+				Room* border = player->currentRoom->getBorderRoom("west");
+				if(border != NULL){
+					//check if south room has triggers
+					player->currentRoom = border;
+					std::cout<<player->currentRoom->description<<std::endl;
+					if(!border->triggers.empty()){
+						//check triggers if activate
+						player->currentRoom->checkTriggers();
+					}
+				}
+				else{
+					std::cout<<"Can’t go that way."<<std::endl;
+				}
+			}
 		}
 		else if(input->compare("i") == STR_EQUAL){
 			validCommand = true;
@@ -98,7 +140,7 @@ int runGame(Element* map){
 					validCommand = true;
 					player->addItem(itemToAdd);
 					player->currentRoom->removeItemAll(secondWord);
-					std::cout<<itemToAdd->name<<" added to inventory."<<std::endl;
+					std::cout<<"Item "<<itemToAdd->name<<" added to inventory."<<std::endl;
 				}
 			}
 			else if(firstWord.compare("open") == STR_EQUAL){

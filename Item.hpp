@@ -28,6 +28,7 @@ public:
 	virtual int print();
 	virtual std::string getStatus();
 	virtual int setStatus(std::string newStatus);
+	virtual int deleteElement(std::string toDelete);
 };
 
 

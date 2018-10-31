@@ -40,8 +40,8 @@ bool Container::hasItem(char* itemName){
 }
 
 int Container::setStatus(std::string newStatus){
-	std::cout<<"Container::setStatus"<<std::endl;
-	//status = strdup(newStatus.c_str());
+	//std::cout<<"Container::setStatus"<<std::endl;
+	status = strdup(newStatus.c_str());
 	return OK;
 }
 
@@ -65,6 +65,23 @@ Item* Container::getItem(std::string item){
 		}
 	}
 	return match;
+}
+
+/*
+ *
+ */
+/*
+ *
+ */
+int Container::deleteElement(std::string toDelete){
+	int statusInt = OK;
+	Element* element = this->getElement(toDelete);
+	Item* deleteItem = dynamic_cast<Item*>(element);
+	if(deleteItem != NULL){
+		items.remove(deleteItem->name);
+		accepts.remove(deleteItem->name);
+	}
+	return statusInt;
 }
 
 /*

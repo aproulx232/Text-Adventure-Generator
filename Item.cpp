@@ -37,6 +37,15 @@ int Item::setStatus(std::string newStatus){
 }
 
 /*
+ *
+ */
+int Item::deleteElement(std::string toDelete){
+	int statusInt = OK;
+	//std::cout<<"TODO  Item::deleteElement("<<std::endl;
+	return statusInt;
+}
+
+/*
  * Print writing on Item
  */
 void Item::printWriting(){

@@ -88,6 +88,16 @@ int Element::add(Element* add){
 	std::cout<<"Element::add()"<<std::endl;
 	return statusInt;
 }
+
+/*
+ *
+ */
+int Element::deleteElement(std::string toDelete){
+	int statusInt = ERROR;
+	std::cout<<"Element::deleteElement"<<std::endl;
+	return statusInt;
+}
+
 /*
  * Does the action string of the Element
  */
@@ -124,7 +134,7 @@ int Element::doAction(std::string actionStr){
 				statusInt = addToContainer->add(obj);
 			}
 			else{
-				std::cout<<"ERROR Element::doAction: Add unknown to"<<std::endl;
+				std::cout<<"ERROR Element::doAction: Add: unknown to"<<std::endl;
 			}
 
 		}
@@ -133,7 +143,19 @@ int Element::doAction(std::string actionStr){
 		}
 	}
 	else if(firstWord.compare("Delete") == STR_EQUAL){
-		std::cout<<"ERROR TODO Delete"<<std::endl;
+		std::string toDelete = actionStr.substr(actionStr.find(" ")+1,actionStr.length());
+		std::cout<<"toDelete:"<<toDelete<<std::endl;
+
+		//go through maplist and call delete(string) on every element
+		std::list<Element*>::iterator it;
+		for (it = mapList.begin(); it != mapList.end(); ++it){
+			Element* index = (dynamic_cast<Element*>(*it));
+			if(index != NULL){
+				index->deleteElement(toDelete);
+			}
+		}
+
+
 	}
 	return statusInt;
 }

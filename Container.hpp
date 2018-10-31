@@ -38,6 +38,7 @@ public:
 	virtual std::string getStatus();
 	virtual int setStatus(std::string newStatus);
 	virtual int add(Element* add);
+	virtual int deleteElement(std::string toDelete);
 
 };
 
