@@ -26,8 +26,9 @@ int main(){
 	long lSize;
 	char *buffer;
 
-	//fp = fopen ( "XML_Tests/sample.txt.xml" , "rb" );
-	fp = fopen ( "XML_Tests/creaturesample.xml" , "rb" );
+	fp = fopen ( "../XML_Tests/sample.txt.xml" , "rb" );
+	//fp = fopen ( "../XML_Tests/creaturesample.xml" , "rb" );
+	//fp = fopen ( "creaturesample.xml" , "rb" );
 	//fp = fopen ( "XML_Tests/containersample.xml" , "rb" );
 	//fp = fopen ( "XML_Tests/itemsample.xml" , "rb" );
 	//fp = fopen ( "XML_Tests/roomsample.xml" , "rb" );
