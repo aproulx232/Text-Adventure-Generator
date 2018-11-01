@@ -15,9 +15,9 @@
 using namespace std;
 
 Container::Container(){
-	name = '\0';
-	status = '\0';
-	description = '\0';
+	name = (char*)"";
+	status = (char*)"";
+	description = (char*)"";
 	opened = false;
 	accepts = {};
 	items = {};

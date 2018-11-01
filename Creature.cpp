@@ -13,9 +13,9 @@ using namespace std;
 
 
 Creature::Creature(){
-	name = '\0';
-	status = '\0';
-	description = '\0';
+	name = (char*)"";
+	status = (char*)"";
+	description = (char*)"";
 	vulnerabilities = {};
 	attacks = {};
 	triggers = {};
@@ -91,6 +91,7 @@ int Creature::attackWith(Item* item){
 	for (vulIt = vulnerabilities.begin(); vulIt != vulnerabilities.end(); ++vulIt){
 		char* index = (*vulIt);
 		if(strcmp(item->name, index) == STR_EQUAL){
+			std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
 			statusInt = START_ATTACK;
 		}
 
@@ -107,7 +108,6 @@ int Creature::attackWith(Item* item){
 					Condition* condition = (*attckCond);
 					/* Check if the condition is met */
 					if(condition->isConditionMet()){
-						std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
 						/* Do prints */
 						std::list<char*>::iterator printIt;
 						for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){
@@ -123,7 +123,7 @@ int Creature::attackWith(Item* item){
 					}
 				}
 			}else{
-				std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
+				//std::cout<<"You assault the "<<name<<" with the "<<item->name<<"."<<std::endl;
 				/* Do prints */
 				std::list<char*>::iterator printIt;
 				for (printIt = attack->prints.begin(); printIt != attack->prints.end(); ++printIt){

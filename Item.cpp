@@ -12,12 +12,12 @@
 using namespace std;
 
 Item::Item(){
-	name = '\0';
-	status = '\0';
-	description = '\0';
-	writing = '\0';
-	turn_on_Print = '\0';
-	turn_on_Action = '\0';
+	name = (char*)"";
+	status = (char*)"";
+	description = (char*)"";
+	writing = (char*)"";
+	turn_on_Print = (char*)"";
+	turn_on_Action = (char*)"";
 	triggers ={};
 }
 

@@ -12,8 +12,8 @@
 using namespace std;
 
 Border::Border(){
-	direction = '\0';
-	name = '\0';
+	direction = (char*)"";
+	name = (char*)"";
 }
 
 int Border::print(){

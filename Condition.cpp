@@ -19,12 +19,12 @@ using namespace std;
 Condition::Condition(){
 	condType = UN_INIT;
 	// For status type
-	status = '\0';
+	status = (char*)"";
 	// For owner type
-	owner = '\0';
-	has = '\0';
+	owner = (char*)"";
+	has = (char*)"";
 	// Both
-	object = '\0';
+	object = (char*)"";
 }
 
 Condition::~Condition(){

@@ -20,7 +20,7 @@ using namespace std;
 #include <string.h>
 
 Trigger::Trigger(){
-	type = '\0';
+	type = (char*)"\0";
 	commands = {};
 	conditions = {};
 	prints = {};
@@ -105,7 +105,7 @@ bool Trigger::areAllConditionsMet(){
 			isMet = false;
 		}
 	}
-	//std::cout<<"areAllConditionsMet "<<isMet<<std::endl;
+	std::cout<<"areAllConditionsMet "<<isMet<<std::endl;//rmp
 	return isMet;
 }
 
