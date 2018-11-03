@@ -22,11 +22,12 @@ public:
 	std::list<Condition*> conditions;
 	std::list<char*> prints;
 	std::list<char*> actions;
-	bool activate();
+	int activate();
 	bool isCommandMet(std::string command);
 	bool areAllCommandsMet(std::string command);
 	bool isConditionMet(Condition* condition);
 	bool areAllConditionsMet();
+	bool areCommandsMatched(std::string command);
 	Trigger();
 	virtual ~Trigger();
 	int print();

@@ -24,11 +24,14 @@ public:
 	std::list<Trigger*> triggers;
 
 	void printWriting();
+	int checkTriggers(std::string command);
+	int checkIfBlocked(std::string command);
 	virtual char* getName();
 	virtual int print();
 	virtual std::string getStatus();
 	virtual int setStatus(std::string newStatus);
 	virtual int deleteElement(std::string toDelete);
+
 };
 
 

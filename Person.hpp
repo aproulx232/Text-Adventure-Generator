@@ -20,8 +20,9 @@ public:
 	Person(Element* map);
 	void addItem(Item* item);
 	Item* deleteItem(std::string item);
-	Item* getItem(string item);
+	Item* getItem(std::string item);
 	bool hasItem(char* item);
+	int checkIfBlocked(std::string command);
 	virtual char* getName();
 	void printInventory();
 };

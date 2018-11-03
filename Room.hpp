@@ -34,6 +34,7 @@ public:
 	Room* getBorderRoom(std::string s);
 	int checkTriggers();
 	int checkTriggers(std::string command);
+	int checkOverrideInput(std::string command);
 	Item* getItemAll(std::string item);
 	void addItem(Item* item);
 	Item* getItemRoom(std::string item);

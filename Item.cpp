@@ -49,7 +49,7 @@ int Item::deleteElement(std::string toDelete){
  * Print writing on Item
  */
 void Item::printWriting(){
-	if(writing != '\0'){
+	if(!std::string(writing).empty()){
 		std::cout<<writing<<std::endl;
 	}
 	else{
@@ -62,6 +62,51 @@ void Item::printWriting(){
  */
 std::string Item::getStatus(){
 	return (string)status;
+}
+
+/*
+ *
+ */
+/*
+ * Check the triggers of the current object to and activates them
+ */
+int Item::checkTriggers(std::string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			//std::cout<<"checking cond"<<std::endl;
+			if(index->areAllConditionsMet() == true ){
+				if(index->areAllCommandsMet(command) == true){
+					//std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
+					if(index->activate() != OK){
+						statusInt = BLOCK_INPUT_COMMAND;
+					}
+				}
+			}
+		}
+	}
+	return statusInt;
+}
+
+/*
+ * Check if the triggers have a command fiend that would block the input
+ */
+int Item::checkIfBlocked(std::string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			if(index->areCommandsMatched(command)){
+				if(index->areAllConditionsMet() ){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+	return statusInt;
 }
 
 int Item::print(){

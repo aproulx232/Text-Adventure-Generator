@@ -31,6 +31,7 @@ public:
 	void printContents();
 	Item* removeItem(std::string item);
 	int checkTriggers(std::string command);
+	int checkIfBlocked(std::string command);
 
 
 	virtual char* getName();

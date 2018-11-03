@@ -19,6 +19,7 @@ using namespace std;
 
 list<Element*> Element::mapList = {};
 list<Element*> Element::deleteList = {};
+bool Element::quit = false;
 
 Element::Element(){
 
@@ -163,12 +164,14 @@ int Element::doAction(std::string actionStr){
 	else if(actionStr.compare("Game Over")  == STR_EQUAL){
 		std::cout<<"Victory!"<<std::endl;
 		statusInt = QUIT_GAME;
+		Element::quit = true;
 	}
 	else{
 		//std::cout<<"runUserCommand!"<<std::endl;//rmp
 		Person* player = dynamic_cast<Person*>(this->getElement(string("inventory")));
 		if(player != NULL){
 			statusInt = runUserCommand(actionStr, player);
+			player->currentRoom->checkTriggers(actionStr);
 		}
 		else{
 			std::cout<<"Element::doAction: player ==null!"<<std::endl;

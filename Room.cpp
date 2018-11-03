@@ -82,11 +82,75 @@ int Room::checkTriggers(){
 	return this->checkTriggers("no_command");
 }
 
+/*
+ * Check if a trigger will override and block the user input
+ * Param: std::string: user input to check
+ * Return: int: enum if blocked or not
+ */
+int Room::checkOverrideInput(std::string command){
+	int statusInt = OK;
+	/* check room triggers*/
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			if(index->areCommandsMatched(command)){
+				if(index->areAllConditionsMet() ){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+	/* Check creature triggers */
+	if (statusInt != BLOCK_INPUT_COMMAND) {
+		if(!creatures.empty()) {
+			std::list<Creature *>::iterator it;
+			for (it = creatures.begin(); it != creatures.end(); ++it) {
+				Creature *index = (*it);
+				/* If input command is not already blocked*/
+				if(index->checkIfBlocked(command) == BLOCK_INPUT_COMMAND){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+	/* Check container triggers */
+	if (statusInt != BLOCK_INPUT_COMMAND) {
+		if(!containers.empty()) {
+			std::list<Container *>::iterator it;
+			for (it = containers.begin(); it != containers.end(); ++it) {
+				Container *index = (*it);
+				/* If input command is not already blocked*/
+				if(index->checkIfBlocked(command) == BLOCK_INPUT_COMMAND){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+	/* Check items in room */
+	if (statusInt != BLOCK_INPUT_COMMAND) {
+		if(!items.empty()) {
+			std::list<Item *>::iterator it;
+			for (it = items.begin(); it != items.end(); ++it) {
+				Item *index = (*it);
+				/* If input command is not already blocked*/
+				if(index->checkIfBlocked(command) == BLOCK_INPUT_COMMAND){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+
+	/* Check inventory items */
+
+	return statusInt;
+}
+
 /* Check if any of the triggers in room are tiggered and triggers them
  * Param: string command: command entered by user
  * Return: int: status or if trigger was activated
  */
-int Room::checkTriggers(string command){
+int Room::checkTriggers(std::string command){
 	int statusInt = OK;
 	/* check room triggers*/
 	if(!triggers.empty()){
@@ -96,7 +160,7 @@ int Room::checkTriggers(string command){
 			if(index->areAllConditionsMet() == true ){
 				if(index->areAllCommandsMet(command) == true){
 					//std::cout<<"Trigger activated"<<std::endl;
-					if(index->activate() == true){
+					if(index->activate() != OK){
 						statusInt = BLOCK_INPUT_COMMAND;
 					}
 				}
@@ -120,10 +184,9 @@ int Room::checkTriggers(string command){
 		}
 	}
 	/* Check container triggers */
-	/*
 	if(!containers.empty()){
 		std::list<Container*>::iterator it;
-		std::cout<<"Room::checkTriggers !containers.empty()"<<std::endl;
+		//std::cout<<"Room::checkTriggers !containers.empty()"<<std::endl;
 		for(it = containers.begin(); it != containers.end(); ++it){
 			Container* index = (*it);
 			// If input command is not already blocked
@@ -136,7 +199,26 @@ int Room::checkTriggers(string command){
 
 		}
 	}
-	*/
+	/* Check items in room */
+	if(!items.empty()){
+		std::list<Item*>::iterator it;
+		//std::cout<<"Room::checkTriggers !items.empty()"<<std::endl;
+		for(it = items.begin(); it != items.end(); ++it){
+			Item* index = (*it);
+			// If input command is not already blocked
+			if(statusInt == OK){
+				statusInt = index->checkTriggers(command);
+			}
+			else{
+				index->checkTriggers(command);
+			}
+
+		}
+	}
+
+	/* Check inventory items */
+
+
 	return statusInt;
 }
 

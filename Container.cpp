@@ -175,9 +175,28 @@ int Container::checkTriggers(std::string command){
 			if(index->areAllConditionsMet() == true ){
 				if(index->areAllCommandsMet(command) == true){
 					//std::cout<<"Container::checkTriggers Trigger activated"<<std::endl;
-					if(index->activate() == true){
+					if(index->activate() != OK){
 						statusInt = BLOCK_INPUT_COMMAND;
 					}
+				}
+			}
+		}
+	}
+	return statusInt;
+}
+
+/*
+ * Check if the triggers have a command fiend that would block the input
+ */
+int Container::checkIfBlocked(std::string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			if(index->areCommandsMatched(command)){
+				if(index->areAllConditionsMet() ){
+					statusInt = BLOCK_INPUT_COMMAND;
 				}
 			}
 		}

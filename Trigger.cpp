@@ -33,16 +33,16 @@ Trigger::~Trigger(){
 
 /* Attempts to activate the trigger, assumes the condition is met
  * param: string command: command from  user
- * return: bool: activated
+ * return: int: status int, OK if not activated, else activated
  */
-bool Trigger::activate(){
-	bool activated = false;
+int Trigger::activate(){
+
 	int statusInt = OK;
 	/* Check if type is null */
 	if( type != NULL){
 	/* Check if single is already used */
 		if(((string)type).compare("used") == STR_EQUAL){
-			return activated;
+			return statusInt;
 		}
 		if(((string)type).compare("single") == STR_EQUAL){
 			type = (char*)"used";
@@ -53,6 +53,7 @@ bool Trigger::activate(){
 	for (it = prints.begin(); it != prints.end(); ++it){
 		std::cout<<(*it)<<std::endl;
 	}
+	statusInt = TRIGGER_ACTIVATED;
 	/* Do trigger action*/
 	//std::list<char*>::iterator it; //TODO
 	for (it = actions.begin(); it != actions.end(); ++it){
@@ -60,8 +61,7 @@ bool Trigger::activate(){
 		Element action;
 		statusInt = action.doAction((string)(*it));
 	}
-	activated = true;
-	return activated;
+	return statusInt;
 }
 
 /*
@@ -77,10 +77,13 @@ bool Trigger::isCommandMet(std::string command){
  * If the give command is matches the trigger command, return true so that input command is blocked
  */
 bool Trigger::areAllCommandsMet(std::string command){
+    //std::cout<<"areAllCommandsMet: command: "<<command<<std::endl;//rmp
 	bool isMet = false;
 	std::list<char*>::iterator it;
 	if(commands.empty()){
-		isMet = true;
+		if(command == "no_command"){
+			isMet = true;
+		}
 	}
 	else{
 		for (it = commands.begin(); it != commands.end(); ++it){
@@ -89,8 +92,23 @@ bool Trigger::areAllCommandsMet(std::string command){
 			}
 		}
 	}
-	//std::cout<<"areAllCommandsMet "<<isMet<<std::endl;
+	//std::cout<<"areAllCommandsMet "<<isMet<<std::endl;//rmp
 	return isMet;
+}
+
+/*
+ * If the give command is matches the trigger command, return true so that input command is blocked
+ */
+bool Trigger::areCommandsMatched(std::string command){
+	bool isBlocked = false;
+	std::list<char*>::iterator it;
+	for (it = commands.begin(); it != commands.end(); ++it){
+		if(((std::string)(*it)).find(command) != std::string::npos){
+			isBlocked = true;
+		}
+	}
+	//std::cout<<"areAllCommandsMet "<<isMet<<std::endl;//rmp
+	return isBlocked;
 }
 
 /*
@@ -105,7 +123,7 @@ bool Trigger::areAllConditionsMet(){
 			isMet = false;
 		}
 	}
-	std::cout<<"areAllConditionsMet "<<isMet<<std::endl;//rmp
+	//std::cout<<"areAllConditionsMet "<<isMet<<std::endl;//rmp
 	return isMet;
 }
 

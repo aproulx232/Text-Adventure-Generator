@@ -70,7 +70,7 @@ int Creature::checkTriggers(std::string command){
 			if(index->areAllConditionsMet() == true ){
 				if(index->areAllCommandsMet(command) == true){
 					//std::cout<<"Creature::checkTriggers Trigger activated"<<std::endl;
-					if(index->activate() == true){
+					if(index->activate() != OK){
 						statusInt = BLOCK_INPUT_COMMAND;
 					}
 				}
@@ -79,7 +79,24 @@ int Creature::checkTriggers(std::string command){
 	}
 	return statusInt;
 }
-
+/*
+ * Check if the triggers have a command fiend that would block the input
+ */
+int Creature::checkIfBlocked(std::string command){
+	int statusInt = OK;
+	if(!triggers.empty()){
+		std::list<Trigger*>::iterator it;
+		for (it = triggers.begin(); it != triggers.end(); ++it){
+			Trigger* index = (*it);
+			if(index->areCommandsMatched(command)){
+				if(index->areAllConditionsMet() ){
+					statusInt = BLOCK_INPUT_COMMAND;
+				}
+			}
+		}
+	}
+	return statusInt;
+}
 
 /*
  * Attack the creature with the Item.
@@ -134,7 +151,7 @@ int Creature::attackWith(Item* item){
 				for (actionIt = attack->actions.begin(); actionIt != attack->actions.end(); ++actionIt){
 					//std::cout<<"action: "<<(*actionIt)<<std::endl;
 					Element action;
-					action.doAction((string)(*actionIt));
+					statusInt = action.doAction((string)(*actionIt));
 				}
 			}
 		}

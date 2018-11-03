@@ -22,7 +22,8 @@ public:
 	std::list<Attack*> attacks;
 	std::list<Trigger*> triggers;
 	Creature();
-	int checkTriggers(string command);
+	int checkTriggers(std::string command);
+	int checkIfBlocked(std::string command);
 	int attackWith(Item* item);
 	virtual char* getName();
 	virtual int print();

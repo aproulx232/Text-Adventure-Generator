@@ -20,6 +20,7 @@ public:
 	virtual~Element();
 	static list <Element*> mapList;
 	static list <Element*> deleteList;
+	static bool quit;
 	Element* getElement(char* name);
 	Element* getElement(std::string name);
 	int printMapList();
