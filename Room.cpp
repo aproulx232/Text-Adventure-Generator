@@ -323,6 +323,20 @@ Creature* Room::getCreatureRoom(std::string creature){
 }
 
 /*
+ *
+ */
+Container* Room::getContainerRoom(std::string container){
+	Container* match = NULL;
+	std::list<Container*>::iterator it;
+	for (it = containers.begin(); it != containers.end(); ++it){
+		Container* index = (*it);
+		if(container == (std::string)index->name){
+			match =  index;
+		}
+	}
+	return match;
+}
+/*
  * Finds type of element and adds it to the correct list of room
  */
 int Room::add(Element* add){

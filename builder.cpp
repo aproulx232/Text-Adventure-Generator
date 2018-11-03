@@ -91,7 +91,7 @@ int buildGame(char * buffer, Element * map){
 			}
 		}
 	}
-	map->printMapList();
+	//map->printMapList();
 	return status;
 }
 

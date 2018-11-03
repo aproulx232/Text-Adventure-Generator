@@ -35,9 +35,9 @@ int runGame(Element* map){
 		if(statusInt  != BLOCK_INPUT_COMMAND) {
 			statusInt = runUserCommand(*input, player);
 		}
-		else{
-			std::cout<<"INPUT BLOCKED"<<std::endl;
-		}
+		//else{
+		//	std::cout<<"INPUT BLOCKED"<<std::endl;
+		//}
 		if(statusInt == QUIT_GAME){
 			Element::quit = true;
 		}
@@ -148,9 +148,8 @@ int runUserCommand(std::string input,Person* player){
 				} else {
 					validCommand = true;
 					Element temp;
-					Container *container = dynamic_cast<Container *>(temp.getElement(secondWord));
+					Container *container = player->currentRoom->getContainerRoom(secondWord);
 					if (container != NULL) {
-
 						container->opened = true;
 						container->printContents();
 					} else {

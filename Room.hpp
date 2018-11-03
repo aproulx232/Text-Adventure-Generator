@@ -39,6 +39,7 @@ public:
 	void addItem(Item* item);
 	Item* getItemRoom(std::string item);
 	Creature* getCreatureRoom(std::string creature);
+	Container* getContainerRoom(std::string container);
 	Item* removeItemRoom(std::string item);
 	Item* removeItemAll(std::string item);
 
